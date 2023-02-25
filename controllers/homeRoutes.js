@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Post, User } = require('../models');
+const { Op } = require("sequelize");
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -40,7 +41,46 @@ router.get('/post/:id', async (req, res) => {
 
     const post = postData.get({ plain: true });
 
-    res.render('project', {
+    const commentData = await Comment.findAll(
+      {
+        where:{
+          post_id: req.params.id,                
+        },   
+      }
+    )
+
+    const dbComment = [];
+    for(let i=0; i< commentData.length; i++){
+      dbComment.push(commentData[i].dataValues)
+    }
+
+    // console.log(dbComment)
+    // console.log(dbComment[0].user_id)
+
+    const userData = await User.findAll(
+      {
+      attributes: {exclude:["password", "email"]}
+     }
+    );        
+    const dbUser = [];
+    for(let i=0; i< userData.length; i++){
+      dbUser.push(userData[i].dataValues)
+    }
+    // console.log(dbUser)
+
+    for(let i=0; i< dbComment.length; i++){
+      for(let j=0; j<dbUser.length; j++){
+        if(dbComment[i].user_id===dbUser[j].id){
+          dbComment[i].user_name = dbUser[j].name;
+        }
+      }
+    }
+    // console.log(dbComment)
+
+    post['comments'] = dbComment;
+    console.log(post)
+
+    res.render('post', {
       ...post,
       logged_in: req.session.logged_in
     });
