@@ -3,6 +3,8 @@ const { Op } = require("sequelize");
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+
+//Route to show all posts in Homepage
 router.get('/', async (req, res) => {
   try {
     // Get all posts and JOIN with user data
@@ -28,6 +30,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//Route to show individual post with comments
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -89,6 +92,7 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
+// Route to User's own dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
@@ -108,6 +112,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
   }
 });
 
+// Route to Newpost Page for user to create the post
 router.get('/newpost', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
@@ -126,6 +131,7 @@ router.get('/newpost', withAuth, async (req, res) => {
   }
 });
 
+// Route to Editpost Page for user to update or delete the post
 router.get('/editpost/:id', withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {

@@ -1,3 +1,5 @@
+
+//Edit and Update existing post
 const editFormHandler = async (event) => {
   event.preventDefault();
   if (event.target.hasAttribute('data-note')) {
@@ -23,6 +25,7 @@ console.log(title, post, post_id)
 }
 };
 
+//Delete the post 
 const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');

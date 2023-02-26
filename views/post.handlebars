@@ -1,3 +1,5 @@
+
+{{!-- Individual Post with comment section --}}
 <div class="row mb-4 project">
   <div class="col-md-12">
     <h2>
@@ -23,6 +25,7 @@
 {{/each}}
   </div>  
 </div>
+{{!-- Only user that log-in can comment under the post --}}
 {{#if logged_in}}
     <form class="form new-comment-form" data-id="{{id}}">      
       <div class="form-group">

@@ -1,3 +1,6 @@
+
+
+// Adding comment under post
 const newCommentHandler = async (event) => {
   event.preventDefault();
   if(event.target.hasAttribute('data-id')){

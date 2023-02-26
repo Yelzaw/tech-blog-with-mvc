@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Post } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+//Create new post
 router.post('/', withAuth, async (req, res) => {
   try {
     const newComment = await Post.create({
@@ -15,6 +16,7 @@ router.post('/', withAuth, async (req, res) => {
   }
 });
 
+//Update existing post
 router.put('/:id', withAuth, async (req, res)=> {
 
     try {
@@ -35,6 +37,8 @@ router.put('/:id', withAuth, async (req, res)=> {
     }
   })
 
+
+  // Delete existing post
 router.delete('/:id', withAuth, async (req, res) => {
   console.log('data is here')
   try {
