@@ -31,7 +31,7 @@ Using port 3001, you can access the home page in the browser and browse the webs
 
 ## URLs
 
-The URL of the deployed application is: Live [link]()
+The URL of the deployed application is: Live [link](https://arcane-crag-07911.herokuapp.com/)
 
 ## License
 
