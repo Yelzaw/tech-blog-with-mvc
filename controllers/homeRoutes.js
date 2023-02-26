@@ -40,7 +40,6 @@ router.get('/post/:id', async (req, res) => {
     });
 
     const post = postData.get({ plain: true });
-
     const commentData = await Comment.findAll(
       {
         where:{
@@ -78,7 +77,7 @@ router.get('/post/:id', async (req, res) => {
     // console.log(dbComment)
 
     post['comments'] = dbComment;
-    console.log(post)
+    // console.log(post)
 
     res.render('post', {
       ...post,
@@ -99,7 +98,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
     });
 
     const user = userData.get({ plain: true });
-console.log(user)
+// console.log(user)
     res.render('dashboard', {
       ...user,
       logged_in: true
@@ -122,6 +121,32 @@ router.get('/newpost', withAuth, async (req, res) => {
       ...user,
       logged_in: true
     });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/editpost/:id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['id','name'],
+        },
+      ],
+    });
+
+    const toEditPost = postData.get({ plain: true });
+    // console.log(toEditPost)
+    // console.log(toEditPost.user.id)
+    // console.log(req.session.user_id)
+    if(toEditPost.user.id===req.session.user_id){
+    res.render('editpost', {
+      ...toEditPost,
+      logged_in: req.session.logged_in
+    });
+  }
   } catch (err) {
     res.status(500).json(err);
   }

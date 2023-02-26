@@ -9,7 +9,7 @@
     {{#each posts as |post|}}
     <div class="card row mb-2 project">
       <div class="col-12" style="border: 3px solid grey;">       
-          <ul style="font-size:larger"><li><a href="/posts/{{post.id}}">{{post.title}}</a> <span style="position: absolute;  right: 10px;  ">Posted on {{format_date post.date_created}}</span></li> </ul>         
+          <ul style="font-size:larger"><li><a href="/editpost/{{post.id}}">{{post.title}}</a> <span style="position: absolute;  right: 10px;  ">Posted on {{format_date post.date_created}}</span></li> </ul>         
         </div>        
       </div>  
     </div>
